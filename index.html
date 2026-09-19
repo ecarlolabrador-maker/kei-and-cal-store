@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KEI & CAL | Elegant Pieces Just For You</title>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -40,39 +41,10 @@
             }
         }
     </script>
-    <!-- Google Fonts & Font Awesome Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- External Stylesheet & Font Icons -->
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #FAF6EF;
-            color: #222222;
-        }
-        .font-serif-title {
-            font-family: 'Playfair Display', serif;
-        }
-        .font-script {
-            font-family: 'Great Vibes', cursive;
-        }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #FAF6EF;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
-        }
-    </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-maroon-600 selection:text-white">
 
@@ -88,12 +60,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
-                <!-- Mobile Menu Button -->
                 <button id="mobileMenuBtn" class="md:hidden text-maroon-800 p-2 focus:outline-none">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
 
-                <!-- Brand Logo & Name -->
+                <!-- Brand Logo -->
                 <a href="#" class="flex items-center gap-3 group">
                     <div class="w-12 h-12 rounded-full border-2 border-maroon-700 p-0.5 flex items-center justify-center bg-cream-100 group-hover:scale-105 transition-transform">
                         <div class="w-full h-full rounded-full bg-cream-50 flex items-center justify-center border border-gold-500/40">
@@ -114,7 +85,7 @@
                     <a href="#how-to-order" class="hover:text-maroon-700 transition-colors">How to Order</a>
                 </div>
 
-                <!-- Action Icons (Search & Cart) -->
+                <!-- Action Icons -->
                 <div class="flex items-center space-x-4">
                     <div class="relative hidden sm:block">
                         <input type="text" id="searchInput" placeholder="Search watches..." 
@@ -172,11 +143,10 @@
                     </div>
                 </div>
 
-                <!-- Hero Graphic Frame -->
                 <div class="lg:col-span-5 flex justify-center">
                     <div class="relative w-72 h-80 sm:w-80 sm:h-96 rounded-2xl bg-cream-100 p-4 border border-gold-500/30 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
                         <div class="w-full h-full rounded-xl overflow-hidden relative border border-maroon-900/10">
-                            <img src="images/watch1.jpg" alt="KEI & CAL Watch Display" class="w-full h-full object-cover">
+                            <img src="./images/watch1.jpg" alt="KEI & CAL Watch Display" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-maroon-900/60 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
                                 <span class="font-serif-title text-xl font-bold">Featured Piece</span>
                                 <span class="text-xs text-cream-200/90 font-light">Classic Gold Chain Watch</span>
@@ -189,13 +159,12 @@
         </div>
     </header>
 
-    <!-- Instagram Highlights Quick Section -->
+    <!-- Highlights Section -->
     <section id="highlights" class="py-12 bg-cream-50 border-b border-maroon-900/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-center text-xs uppercase tracking-widest text-maroon-700 font-bold mb-8">Store Highlights</h2>
             
             <div class="flex justify-center items-center gap-8 sm:gap-16">
-                <!-- Highlight 1: SOLD -->
                 <div onclick="openModal('soldModal')" class="flex flex-col items-center gap-2 group cursor-pointer">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 border-2 border-maroon-700/40 group-hover:border-maroon-700 transition-all group-hover:scale-105">
                         <div class="w-full h-full rounded-full bg-maroon-800 text-cream-100 flex items-center justify-center font-serif-title italic text-lg sm:text-xl font-semibold border border-gold-500/30">
@@ -205,7 +174,6 @@
                     <span class="text-xs font-semibold text-charcoal/80 group-hover:text-maroon-800 tracking-wide">SOLD</span>
                 </div>
 
-                <!-- Highlight 2: HOW -->
                 <div onclick="scrollToSection('how-to-order')" class="flex flex-col items-center gap-2 group cursor-pointer">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 border-2 border-maroon-700/40 group-hover:border-maroon-700 transition-all group-hover:scale-105">
                         <div class="w-full h-full rounded-full bg-maroon-800 text-cream-100 flex items-center justify-center font-serif-title italic text-lg sm:text-xl font-semibold border border-gold-500/30">
@@ -215,7 +183,6 @@
                     <span class="text-xs font-semibold text-charcoal/80 group-hover:text-maroon-800 tracking-wide">HOW TO ORDER</span>
                 </div>
 
-                <!-- Highlight 3: RULES -->
                 <div onclick="scrollToSection('rules')" class="flex flex-col items-center gap-2 group cursor-pointer">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 border-2 border-maroon-700/40 group-hover:border-maroon-700 transition-all group-hover:scale-105">
                         <div class="w-full h-full rounded-full bg-maroon-800 text-cream-100 flex items-center justify-center font-serif-title italic text-lg sm:text-xl font-semibold border border-gold-500/30">
@@ -236,7 +203,6 @@
                 <h2 class="font-serif-title text-3xl sm:text-4xl font-bold text-maroon-900 mt-1">Our Watch Collection</h2>
             </div>
 
-            <!-- Filter Buttons -->
             <div class="flex flex-wrap gap-2">
                 <button onclick="filterCategory('all')" class="filter-btn active px-4 py-2 text-xs font-semibold rounded-full border border-maroon-800/20 bg-maroon-800 text-cream-50 transition-all">All Pieces</button>
                 <button onclick="filterCategory('watches')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-full border border-maroon-800/20 bg-cream-100 text-charcoal/80 hover:bg-maroon-800/10 transition-all">Watches</button>
@@ -244,13 +210,12 @@
             </div>
         </div>
 
-        <!-- Product Grid -->
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            <!-- Product Cards Populated via JavaScript -->
+            <!-- Dynamically populated via script.js -->
         </div>
     </main>
 
-    <!-- Store Rules & Guidelines Section -->
+    <!-- Store Rules -->
     <section id="rules" class="py-16 bg-cream-100 border-t border-maroon-900/10">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -292,7 +257,7 @@
         </div>
     </section>
 
-    <!-- How to Order Section -->
+    <!-- How to Order -->
     <section id="how-to-order" class="py-16 bg-cream-50 border-t border-maroon-900/10">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -354,7 +319,7 @@
         </div>
     </footer>
 
-    <!-- Shopping Cart Drawer Overlay -->
+    <!-- Shopping Cart Drawer -->
     <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
         <div onclick="toggleCartDrawer(false)" class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"></div>
         <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
@@ -370,12 +335,10 @@
                     </button>
                 </div>
 
-                <!-- Cart Items List -->
                 <div id="cartItemsContainer" class="flex-grow p-6 overflow-y-auto space-y-4">
                     <!-- Dynamically Populated -->
                 </div>
 
-                <!-- Cart Footer -->
                 <div class="p-6 border-t border-maroon-900/10 bg-cream-100 space-y-4">
                     <div class="flex justify-between items-center text-sm">
                         <span class="text-charcoal/70">Subtotal</span>
@@ -396,7 +359,7 @@
         </div>
     </div>
 
-    <!-- SOLD Highlight Modal -->
+    <!-- SOLD Modal -->
     <div id="soldModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
         <div onclick="closeModal('soldModal')" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
         <div class="relative bg-cream-50 rounded-2xl border border-maroon-900/20 max-w-lg w-full p-6 text-center shadow-2xl z-10">
@@ -412,232 +375,7 @@
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        // Set dynamic copyright year
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Product Catalog Data
-        const products = [
-    {
-        id: 1,
-        name: "Vintage Gold Elegant Dress Watch",
-        category: "watches",
-        price: 250,
-        description: "Elegant gold mesh watch featuring a classic oval dial and intricate band details.",
-        badge: "Featured",
-        image: "./images/watch1.jpg" // Note the added ./ prefix
-    },
-    {
-        id: 2,
-        name: "Elegance Rose Gold Mesh Watch",
-        category: "watches",
-        price: 250,
-        description: "Delicate rose gold finish featuring a minimalist dial face.",
-        badge: "Popular",
-        image: "./images/watch2.jpg"
-    },
-    {
-        id: 3,
-        name: "Classic Pearl & Gold Bracelet Watch",
-        category: "watches",
-        price: 250,
-        description: "Dainty watch combined with synthetic pearl bracelet elements.",
-        badge: "New Arrival",
-        image: "./images/watch3.jpg"
-    },
-    {
-        id: 4,
-        name: "Minimalist Slim Leather Strap Watch",
-        category: "watches",
-        price: 250,
-        description: "Sophisticated brown thin leather strap paired with a classic dial.",
-        badge: "Casual Elegance",
-        image: "./images/watch4.jpg"
-    }
-];
-
-        let cart = [];
-        let activeCategory = 'all';
-
-        // Render Product Catalog
-        function renderProducts(filterText = '') {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = '';
-
-            const filtered = products.filter(p => {
-                const matchesCategory = activeCategory === 'all' || p.category === activeCategory;
-                const matchesSearch = p.name.toLowerCase().includes(filterText.toLowerCase()) || 
-                                      p.description.toLowerCase().includes(filterText.toLowerCase());
-                return matchesCategory && matchesSearch;
-            });
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-charcoal/60">
-                        <i class="fa-regular fa-face-frown text-3xl mb-2 text-maroon-700/50"></i>
-                        <p class="text-sm">No pieces found matching your query.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            filtered.forEach(p => {
-                const card = document.createElement('div');
-                card.className = "bg-cream-100 rounded-2xl overflow-hidden border border-maroon-900/10 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between";
-                card.innerHTML = `
-                    <div>
-                        <div class="relative h-64 overflow-hidden bg-cream-200">
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            ${p.badge ? `<span class="absolute top-3 left-3 bg-maroon-800/90 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold-500/30">${p.badge}</span>` : ''}
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif-title font-bold text-lg text-maroon-900 group-hover:text-maroon-700 transition-colors">${p.name}</h3>
-                            <p class="text-xs text-charcoal/70 mt-2 line-clamp-2">${p.description}</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0 flex items-center justify-between border-t border-maroon-900/5 mt-2">
-                        <span class="font-serif-title font-bold text-lg text-maroon-900">₱${p.price.toFixed(2)}</span>
-                        <button onclick="addToCart(${p.id})" class="px-4 py-2 bg-maroon-800 hover:bg-maroon-900 text-cream-50 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-plus text-[10px]"></i>
-                            <span>Add to Bag</span>
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // Cart Actions
-        function addToCart(productId) {
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.quantity++;
-            } else {
-                const product = products.find(p => p.id === productId);
-                cart.push({ ...product, quantity: 1 });
-            }
-            updateCartUI();
-            toggleCartDrawer(true);
-        }
-
-        function updateCartQuantity(productId, delta) {
-            const item = cart.find(i => i.id === productId);
-            if (item) {
-                item.quantity += delta;
-                if (item.quantity <= 0) {
-                    cart = cart.filter(i => i.id !== productId);
-                }
-            }
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const container = document.getElementById('cartItemsContainer');
-            const badge = document.getElementById('cartBadge');
-            const totalEl = document.getElementById('cartTotal');
-
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-            if (totalItems > 0) {
-                badge.textContent = totalItems;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-
-            totalEl.textContent = `₱${totalPrice.toFixed(2)}`;
-
-            if (cart.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 text-charcoal/60">
-                        <i class="fa-solid fa-bag-shopping text-4xl mb-3 text-maroon-700/30"></i>
-                        <p class="text-sm font-medium">Your shopping bag is empty.</p>
-                        <p class="text-xs text-charcoal/50 mt-1">Explore our watch collection and select your favorite pieces.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = '';
-            cart.forEach(item => {
-                const el = document.createElement('div');
-                el.className = "flex items-center gap-4 bg-cream-100 p-3 rounded-xl border border-maroon-900/10";
-                el.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
-                    <div class="flex-grow">
-                        <h4 class="font-serif-title font-bold text-sm text-maroon-900">${item.name}</h4>
-                        <span class="text-xs text-maroon-800 font-semibold">₱${item.price.toFixed(2)}</span>
-                        <div class="flex items-center gap-2 mt-2">
-                            <button onclick="updateCartQuantity(${item.id}, -1)" class="w-5 h-5 bg-cream-200 rounded text-xs font-bold text-maroon-900 flex items-center justify-center">-</button>
-                            <span class="text-xs font-semibold px-1">${item.quantity}</span>
-                            <button onclick="updateCartQuantity(${item.id}, 1)" class="w-5 h-5 bg-cream-200 rounded text-xs font-bold text-maroon-900 flex items-center justify-center">+</button>
-                        </div>
-                    </div>
-                    <button onclick="updateCartQuantity(${item.id}, -${item.quantity})" class="text-charcoal/40 hover:text-maroon-800 p-1">
-                        <i class="fa-solid fa-trash-can text-sm"></i>
-                    </button>
-                `;
-                container.appendChild(el);
-            });
-        }
-
-        function toggleCartDrawer(show) {
-            const drawer = document.getElementById('cartDrawer');
-            if (show) drawer.classList.remove('hidden');
-            else drawer.classList.add('hidden');
-        }
-
-        function checkoutViaInstagram() {
-            if (cart.length === 0) {
-                alert('Your bag is empty!');
-                return;
-            }
-
-            let message = "Hello KEI & CAL! I would like to order the following dainty pieces:\n\n";
-            cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} (Qty: ${item.quantity}) - ₱${(item.price * item.quantity).toFixed(2)}\n`;
-            });
-
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            message += `\nTotal: ₱${total.toFixed(2)}\n\nPlease assist me with shipping details and payment options!`;
-
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://www.instagram.com/_daintypieces_/`, '_blank');
-        }
-
-        function filterCategory(cat) {
-            activeCategory = cat;
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-maroon-800', 'text-cream-50');
-                btn.classList.add('bg-cream-100', 'text-charcoal/80');
-            });
-            event.target.classList.remove('bg-cream-100', 'text-charcoal/80');
-            event.target.classList.add('bg-maroon-800', 'text-cream-50');
-            renderProducts();
-        }
-
-        function openModal(id) {
-            document.getElementById(id).classList.remove('hidden');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-        }
-
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Search Handlers
-        document.getElementById('searchInput').addEventListener('input', (e) => renderProducts(e.target.value));
-        document.getElementById('mobileSearchInput').addEventListener('input', (e) => renderProducts(e.target.value));
-        document.getElementById('cartBtn').addEventListener('click', () => toggleCartDrawer(true));
-
-        // Initial Render
-        renderProducts();
-        updateCartUI();
-    </script>
+    <!-- JavaScript Module -->
+    <script src="script.js"></script>
 </body>
 </html>
