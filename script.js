@@ -2,51 +2,43 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Product Catalog Data
+// Product Catalog Data
 const products = [
     {
         id: 1,
-        name: "Vintage Gold Elegant Dress Watch",
+        name: "Vintage Gold Small Round Dial Watch",
         category: "watches",
-        price: 599,
-        description: "Elegant gold mesh watch featuring a classic oval dial and intricate band details.",
+        price: 250,
+        description: "Classic gold-tone vintage watch featuring a petite round dial face and intricate patterned metallic link band, presented in a red gift box.",
         badge: "Featured",
         image: "./images/watch1.jpg"
     },
     {
         id: 2,
-        name: "Rose Gold Dainty Chain Watch",
+        name: "Vintage Gold Square Dial Bracelet Watch",
         category: "watches",
-        price: 649,
-        description: "Minimalist rose gold piece perfect for everyday elegance.",
-        badge: "New Arrival",
+        price: 250,
+        description: "Elegant gold watch with a distinct square face and detailed textured link strap for a sophisticated vintage accessory look.",
+        badge: "Popular",
         image: "./images/watch2.jpg"
     },
     {
         id: 3,
-        name: "Classic Silver Square Dial Watch",
+        name: "Red Accent Gold Chain Bracelet Watch",
         category: "watches",
-        price: 550,
-        description: "Timeless silver square watch with clear numerical markers.",
-        badge: "Bestseller",
+        price: 250,
+        description: "Dainty round watch featuring a bold red bezel trim paired with an interwoven gold and red leather-style chain band.",
+        badge: "New Arrival",
         image: "./images/watch3.jpg"
     },
     {
         id: 4,
-        name: "Gold Oval Vintage Bracelet Watch",
+        name: "Silver Floral Crystal Bracelet Watch",
         category: "watches",
-        price: 680,
-        description: "Vintage-inspired jewelry watch with detailed gold links.",
-        badge: "Dainty Pick",
+        price: 250,
+        description: "Jewelry-inspired silver watch featuring a diamond-shaped dial surrounded by sparkling crystal floral-pattern link connectors.",
+        badge: "Casual Elegance",
         image: "./images/watch4.jpg"
-    },
-    {
-        id: 5,
-        name: "Minimalist Dual-Tone Petite Watch",
-        category: "watches",
-        price: 620,
-        description: "Chic dual-tone watch band designed for subtle sophistication.",
-        badge: "Limited",
-        image: "./images/watch5.jpg"
     }
 ];
 
