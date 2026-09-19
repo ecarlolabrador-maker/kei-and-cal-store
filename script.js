@@ -88,16 +88,20 @@ function renderProducts(filterText = '') {
         
         card.innerHTML = `
             <div>
-                <div class="relative h-64 overflow-hidden bg-cream-200">
+                <div onclick="openQuickView(${p.id})" class="relative h-64 overflow-hidden bg-cream-200 cursor-pointer">
                     <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${isSoldOut ? 'opacity-60 grayscale-[30%]' : ''}">
                     
                     ${isSoldOut 
                         ? `<span class="absolute top-3 left-3 bg-red-900 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-red-500/30">SOLD OUT</span>`
                         : (p.badge ? `<span class="absolute top-3 left-3 bg-maroon-800/90 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold-500/30">${p.badge}</span>` : '')
                     }
+                    
+                    <div class="absolute inset-0 bg-maroon-900/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-cream-50/90 text-maroon-900 text-xs font-semibold px-3 py-1.5 rounded-full shadow-md"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Quick View</span>
+                    </div>
                 </div>
                 <div class="p-5">
-                    <h3 class="font-serif-title font-bold text-lg text-maroon-900 group-hover:text-maroon-700 transition-colors">${p.name}</h3>
+                    <h3 onclick="openQuickView(${p.id})" class="font-serif-title font-bold text-lg text-maroon-900 group-hover:text-maroon-700 transition-colors cursor-pointer">${p.name}</h3>
                     <p class="text-xs text-charcoal/70 mt-2 line-clamp-2">${p.description}</p>
                 </div>
             </div>
@@ -118,6 +122,44 @@ function renderProducts(filterText = '') {
         grid.appendChild(card);
     });
 }
+
+function openQuickView(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    document.getElementById('modalMainImage').src = product.image;
+    document.getElementById('modalTitle').textContent = product.name;
+    document.getElementById('modalPrice').textContent = `₱${product.price.toFixed(2)}`;
+    document.getElementById('modalDescription').textContent = product.description;
+
+    const badgeEl = document.getElementById('modalBadge');
+    if (product.isAvailable === false) {
+        badgeEl.textContent = 'SOLD OUT';
+        badgeEl.className = 'inline-block bg-red-900 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-red-500/30 mb-2';
+    } else {
+        badgeEl.textContent = product.badge || 'Available';
+        badgeEl.className = 'inline-block bg-maroon-800/90 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold-500/30 mb-2';
+    }
+
+    const actionContainer = document.getElementById('modalActionContainer');
+    if (product.isAvailable === false) {
+        actionContainer.innerHTML = `
+            <button disabled class="w-full py-3 bg-charcoal/20 text-charcoal/50 rounded-full text-xs font-semibold cursor-not-allowed">
+                Sold Out
+            </button>
+        `;
+    } else {
+        actionContainer.innerHTML = `
+            <button onclick="addToCart(${product.id}); closeModal('quickViewModal');" class="w-full py-3 bg-maroon-800 hover:bg-maroon-900 text-cream-50 rounded-full text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-md">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>Add to Bag</span>
+            </button>
+        `;
+    }
+
+    openModal('quickViewModal');
+}
+
 
 // Cart Actions
 function addToCart(productId) {

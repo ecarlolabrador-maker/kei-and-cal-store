@@ -374,7 +374,38 @@
             <button onclick="closeModal('soldModal')" class="px-6 py-2.5 bg-maroon-800 text-cream-50 text-xs font-semibold rounded-full">Close Archive</button>
         </div>
     </div>
+    <!-- Quick View / Gallery Modal -->
+<div id="quickViewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div onclick="closeModal('quickViewModal')" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="relative bg-cream-50 rounded-2xl border border-maroon-900/20 max-w-2xl w-full p-6 shadow-2xl z-10 overflow-hidden max-h-[90vh] flex flex-col">
+        <button onclick="closeModal('quickViewModal')" class="absolute top-4 right-4 z-10 text-charcoal/60 hover:text-maroon-800 bg-cream-100/80 rounded-full w-8 h-8 flex items-center justify-center">
+            <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center overflow-y-auto">
+            <!-- Main Zoom Image View -->
+            <div class="space-y-3">
+                <div class="relative h-72 sm:h-80 rounded-xl overflow-hidden bg-cream-200 border border-maroon-900/10">
+                    <img id="modalMainImage" src="" alt="Watch Detail" class="w-full h-full object-cover transition-all duration-300">
+                </div>
+            </div>
+
+            <!-- Watch Details & Actions -->
+            <div class="flex flex-col justify-between h-full space-y-4">
+                <div>
+                    <span id="modalBadge" class="inline-block bg-maroon-800/90 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold-500/30 mb-2"></span>
+                    <h3 id="modalTitle" class="font-serif-title font-bold text-2xl text-maroon-900"></h3>
+                    <p id="modalPrice" class="font-serif-title font-bold text-xl text-maroon-800 mt-1"></p>
+                    <p id="modalDescription" class="text-xs text-charcoal/70 mt-3 leading-relaxed"></p>
+                </div>
+
+                <div id="modalActionContainer" class="pt-4 border-t border-maroon-900/10">
+                    <!-- Dynamic Cart / Sold Out Button -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     <!-- JavaScript Module -->
     <script src="script.js?v=1.1"></script>
 </body>
