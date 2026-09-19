@@ -2,7 +2,6 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Product Catalog Data
-// Product Catalog Data
 const products = [
     {
         id: 1,
