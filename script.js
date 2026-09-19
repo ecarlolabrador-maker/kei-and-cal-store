@@ -2,24 +2,27 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Product Catalog Data
+// Product Catalog Data
 const products = [
     {
         id: 1,
         name: "Vintage Gold Small Round Dial Watch",
         category: "watches",
         price: 250,
-        description: "Classic gold-tone vintage watch featuring a petite round dial face and intricate patterned metallic link band, presented in a red gift box.",
+        description: "Classic gold-tone vintage watch featuring a petite round dial face and intricate patterned metallic link band.",
         badge: "Featured",
-        image: "./images/watch1.jpg"
+        image: "./images/watch1.jpg",
+        isAvailable: true // In stock
     },
     {
         id: 2,
         name: "Vintage Gold Square Dial Bracelet Watch",
         category: "watches",
         price: 250,
-        description: "Elegant gold watch with a distinct square face and detailed textured link strap for a sophisticated vintage accessory look.",
+        description: "Elegant gold watch with a distinct square face and detailed textured link strap.",
         badge: "Popular",
-        image: "./images/watch2.jpg"
+        image: "./images/watch2.jpg",
+        isAvailable: false // Sold out
     },
     {
         id: 3,
@@ -28,7 +31,8 @@ const products = [
         price: 250,
         description: "Dainty round watch featuring a bold red bezel trim paired with an interwoven gold and red leather-style chain band.",
         badge: "New Arrival",
-        image: "./images/watch3.jpg"
+        image: "./images/watch3.jpg",
+        isAvailable: true
     },
     {
         id: 4,
@@ -37,7 +41,8 @@ const products = [
         price: 250,
         description: "Jewelry-inspired silver watch featuring a diamond-shaped dial surrounded by sparkling crystal floral-pattern link connectors.",
         badge: "Casual Elegance",
-        image: "./images/watch4.jpg"
+        image: "./images/watch4.jpg",
+        isAvailable: true
     }
 ];
 
@@ -67,13 +72,19 @@ function renderProducts(filterText = '') {
     }
 
     filtered.forEach(p => {
+        const isSoldOut = p.isAvailable === false;
         const card = document.createElement('div');
-        card.className = "bg-cream-100 rounded-2xl overflow-hidden border border-maroon-900/10 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between";
+        card.className = "bg-cream-100 rounded-2xl overflow-hidden border border-maroon-900/10 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between relative";
+        
         card.innerHTML = `
             <div>
                 <div class="relative h-64 overflow-hidden bg-cream-200">
-                    <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    ${p.badge ? `<span class="absolute top-3 left-3 bg-maroon-800/90 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold-500/30">${p.badge}</span>` : ''}
+                    <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${isSoldOut ? 'opacity-60 grayscale-[30%]' : ''}">
+                    
+                    ${isSoldOut 
+                        ? `<span class="absolute top-3 left-3 bg-red-900 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-red-500/30">SOLD OUT</span>`
+                        : (p.badge ? `<span class="absolute top-3 left-3 bg-maroon-800/90 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold-500/30">${p.badge}</span>` : '')
+                    }
                 </div>
                 <div class="p-5">
                     <h3 class="font-serif-title font-bold text-lg text-maroon-900 group-hover:text-maroon-700 transition-colors">${p.name}</h3>
@@ -82,10 +93,16 @@ function renderProducts(filterText = '') {
             </div>
             <div class="p-5 pt-0 flex items-center justify-between border-t border-maroon-900/5 mt-2">
                 <span class="font-serif-title font-bold text-lg text-maroon-900">₱${p.price.toFixed(2)}</span>
-                <button onclick="addToCart(${p.id})" class="px-4 py-2 bg-maroon-800 hover:bg-maroon-900 text-cream-50 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm">
-                    <i class="fa-solid fa-plus text-[10px]"></i>
-                    <span>Add to Bag</span>
-                </button>
+                
+                ${isSoldOut 
+                    ? `<button disabled class="px-4 py-2 bg-charcoal/20 text-charcoal/50 rounded-full text-xs font-semibold cursor-not-allowed">
+                        <span>Sold Out</span>
+                       </button>`
+                    : `<button onclick="addToCart(${p.id})" class="px-4 py-2 bg-maroon-800 hover:bg-maroon-900 text-cream-50 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-plus text-[10px]"></i>
+                        <span>Add to Bag</span>
+                       </button>`
+                }
             </div>
         `;
         grid.appendChild(card);
