@@ -12,7 +12,7 @@ const products = [
         description: "Classic gold-tone vintage watch featuring a petite round dial face and intricate patterned metallic link band.",
         badge: "Featured",
         image: "./images/watch1.jpg",
-        isAvailable: true // In stock
+        isAvailable: false // In stock
     },
     {
         id: 2,
@@ -42,8 +42,18 @@ const products = [
         description: "Jewelry-inspired silver watch featuring a diamond-shaped dial surrounded by sparkling crystal floral-pattern link connectors.",
         badge: "Casual Elegance",
         image: "./images/watch4.jpg",
-        isAvailable: true
-    }
+        isAvailable: false
+    },
+    {
+    id: 5,
+    name: "Silver Red Dial Floral Crystal Watch",
+    category: "watches",
+    price: 250,
+    description: "Charming silver jewelry watch featuring a striking red round dial, crystal-studded bezel, and delicate floral rhinestone link accents.",
+    badge: "Dainty Pick",
+    image: "./images/watch5.jpg",
+    isAvailable: true
+     }
 ];
 
 let cart = [];
