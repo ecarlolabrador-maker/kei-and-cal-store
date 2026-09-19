@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEI & CAL - Elegant Pieces Just For You</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#FFFEFA',
+                            100: '#FAF7F2',
+                            200: '#F4EFE6',
+                            300: '#E9E1D2'
+                        },
+                        maroon: {
+                            500: '#8C1F33',
+                            600: '#7A1C2C',
+                            700: '#651523',
+                            800: '#4D0E19'
+                        },
+                        gold: {
+                            300: '#E5C76B',
+                            400: '#D4AF37',
+                            500: '#B89228'
+                        },
+                        charcoal: '#2C2C2C'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF7F2;
+            color: #2C2C2C;
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1, h2, h3, h4, .font-serif-title {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7A1C2C;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-maroon-600 selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-maroon-700 text-cream-100 text-xs py-2 px-4 text-center tracking-wider font-light flex justify-between items-center px-6">
+        <span class="hidden sm:inline">✨ AFFORDABLE & ELEGANT ACCESSORIES</span>
+        <span class="mx-auto sm:mx-0">✨ "ELEGANT PIECES JUST FOR YOU" 📦 WORLDWIDE & LOCAL SHIPPING AVAILABLE</span>
+        <span class="hidden sm:inline">IG: @_daintypieces_</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-cream-100/90 backdrop-blur-md border-b border-maroon-600/10 transition-all duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-maroon-700 hover:text-maroon-500 focus:outline-none p-2">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+
+                <!-- Brand Logo (Matching Ig Logo visual style) -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-full bg-cream-100 border border-maroon-600/30 flex items-center justify-center shadow-inner group-hover:border-maroon-600 transition">
+                        <span class="font-serif text-maroon-700 font-bold text-xl tracking-tighter">K&C</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-maroon-700 leading-none">KEI & CAL</span>
+                        <span class="text-[10px] tracking-[0.25em] text-maroon-600/80 uppercase font-medium">Dainty Pieces</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wide uppercase">
+                    <a href="#hero" class="text-maroon-700 hover:text-gold-500 transition py-1 border-b-2 border-transparent hover:border-gold-400">Home</a>
+                    <a href="#catalog" class="text-charcoal hover:text-maroon-700 transition py-1 border-b-2 border-transparent hover:border-maroon-700">Catalog</a>
+                    <a href="#howToOrder" onclick="openModal('howModal')" class="text-charcoal hover:text-maroon-700 transition py-1 border-b-2 border-transparent hover:border-maroon-700">How to Order</a>
+                    <a href="#rules" onclick="openModal('rulesModal')" class="text-charcoal hover:text-maroon-700 transition py-1 border-b-2 border-transparent hover:border-maroon-700">Store Rules</a>
+                    <a href="#about" class="text-charcoal hover:text-maroon-700 transition py-1 border-b-2 border-transparent hover:border-maroon-700">About Us</a>
+                </nav>
+
+                <!-- Action Icons -->
+                <div class="flex items-center space-x-4 sm:space-x-6">
+                    <button id="searchBtn" onclick="toggleSearchModal()" class="text-charcoal hover:text-maroon-700 p-2 transition" title="Search">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </button>
+
+                    <!-- Shopping Cart Button -->
+                    <button id="cartBtn" onclick="toggleCartDrawer()" class="relative p-2 text-maroon-700 hover:text-maroon-500 transition" title="Shopping Cart">
+                        <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                        <span id="cartBadge" class="absolute -top-1 -right-1 bg-gold-400 text-maroon-800 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-cream-100 hidden">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-cream-100 border-b border-maroon-600/10 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="block py-2 text-maroon-700 font-medium">Home</a>
+            <a href="#catalog" class="block py-2 text-charcoal hover:text-maroon-700">Catalog</a>
+            <button onclick="openModal('howModal'); toggleMobileMenu();" class="block w-full text-left py-2 text-charcoal hover:text-maroon-700">How to Order</button>
+            <button onclick="openModal('rulesModal'); toggleMobileMenu();" class="block w-full text-left py-2 text-charcoal hover:text-maroon-700">Store Rules</button>
+            <a href="#about" class="block py-2 text-charcoal hover:text-maroon-700">About Us</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="relative overflow-hidden py-12 md:py-20 bg-gradient-to-b from-cream-100 via-cream-200 to-cream-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-maroon-600/20 bg-maroon-700/5 text-maroon-700 text-xs uppercase tracking-widest">
+                            <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+                            Official Store Collection
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-maroon-700 leading-tight">
+                            Elegant pieces <br><span class="italic font-light text-gold-500">just for you.</span>
+                        </h1>
+                        <p class="text-charcoal/80 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                            Discover boutique watches and dainty accessories crafted to elevate your daily style with timeless charm and effortless sophistication.
+                        </p>
+
+                        <!-- Highlights Instagram-style buttons -->
+                        <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-6">
+                            <button onclick="openModal('soldModal')" class="flex flex-col items-center group cursor-pointer">
+                                <div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-gold-400 to-maroon-700 group-hover:scale-105 transition duration-300">
+                                    <div class="w-full h-full bg-maroon-700 rounded-full flex items-center justify-center border-2 border-cream-100">
+                                        <i class="fa-solid fa-crown text-gold-400 text-lg"></i>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold tracking-wider uppercase mt-2 text-maroon-700">SOLD</span>
+                            </button>
+
+                            <button onclick="openModal('howModal')" class="flex flex-col items-center group cursor-pointer">
+                                <div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-gold-400 to-maroon-700 group-hover:scale-105 transition duration-300">
+                                    <div class="w-full h-full bg-maroon-700 rounded-full flex items-center justify-center border-2 border-cream-100">
+                                        <i class="fa-solid fa-circle-question text-gold-400 text-lg"></i>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold tracking-wider uppercase mt-2 text-maroon-700">HOW</span>
+                            </button>
+
+                            <button onclick="openModal('rulesModal')" class="flex flex-col items-center group cursor-pointer">
+                                <div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-gold-400 to-maroon-700 group-hover:scale-105 transition duration-300">
+                                    <div class="w-full h-full bg-maroon-700 rounded-full flex items-center justify-center border-2 border-cream-100">
+                                        <i class="fa-solid fa-scroll text-gold-400 text-lg"></i>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold tracking-wider uppercase mt-2 text-maroon-700">RULES</span>
+                            </button>
+                        </div>
+
+                        <div class="pt-6 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="#catalog" class="px-8 py-3.5 bg-maroon-700 hover:bg-maroon-800 text-cream-100 rounded-md font-medium text-sm tracking-widest uppercase transition shadow-md hover:shadow-lg text-center">
+                                Shop Collection
+                            </a>
+                            <a href="https://www.instagram.com/_daintypieces_/" target="_blank" class="px-8 py-3.5 border border-maroon-700 text-maroon-700 hover:bg-maroon-700/5 rounded-md font-medium text-sm tracking-widest uppercase transition text-center flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-instagram"></i> Instagram
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Featured Product Visual -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-md rounded-2xl overflow-hidden shadow-2xl bg-cream-100 border-4 border-white">
+                            <!-- Visual Box Art representation of the featured Instagram Watch post -->
+                            <div class="relative h-96 bg-gradient-to-br from-maroon-800 to-maroon-600 p-6 flex items-center justify-center overflow-hidden">
+                                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                                
+                                <!-- Red Gift Box Visual -->
+                                <div class="relative z-10 w-64 h-80 bg-red-900 rounded-lg shadow-2xl p-4 border border-gold-400/30 flex flex-col items-center justify-center">
+                                    <!-- Ribbon -->
+                                    <div class="absolute top-0 bottom-0 w-8 bg-red-600 shadow-md border-x border-gold-400/40"></div>
+                                    <div class="absolute left-0 right-0 h-8 bg-red-600 shadow-md border-y border-gold-400/40"></div>
+                                    <div class="absolute -top-3 z-20 text-gold-400 text-3xl">🎀</div>
+                                    
+                                    <!-- Watch Inside Box -->
+                                    <div class="relative z-20 w-16 h-56 bg-maroon-800/80 rounded-full flex flex-col items-center justify-between py-4 border border-gold-400/50 shadow-inner">
+                                        <div class="w-8 h-12 border-2 border-gold-400 rounded-sm"></div>
+                                        <div class="w-10 h-10 rounded-full border-2 border-gold-400 bg-cream-100 flex items-center justify-center shadow-md">
+                                            <div class="w-7 h-7 rounded-full border border-gold-500 relative flex items-center justify-center">
+                                                <div class="w-1 h-3 bg-maroon-700 absolute top-1"></div>
+                                                <div class="w-2 h-1 bg-maroon-700 absolute right-1"></div>
+                                            </div>
+                                        </div>
+                                        <div class="w-8 h-12 border-2 border-gold-400 rounded-sm"></div>
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-4 right-4 bg-cream-100/90 backdrop-blur-sm px-3 py-1.5 rounded-md text-xs font-semibold text-maroon-700 shadow border border-gold-400/30">
+                                    Featured Signature Set
+                                </div>
+                            </div>
+                            
+                            <div class="p-5 bg-white text-center">
+                                <span class="text-xs uppercase tracking-widest text-gold-500 font-semibold">Vintage Elegance</span>
+                                <h3 class="text-2xl font-serif font-bold text-maroon-700">Dainty Gold Vintage Ribbon Box Watch</h3>
+                                <p class="text-sm text-charcoal/70 mt-1">₱599.00 <span class="text-xs text-green-600 font-medium">(In Stock)</span></p>
+                                <button onclick="quickView(1)" class="mt-3 text-xs font-semibold uppercase tracking-wider text-maroon-700 hover:text-gold-500 underline underline-offset-4">Quick View</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Catalog Section -->
+        <section id="catalog" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs uppercase tracking-[0.3em] text-gold-500 font-semibold">Curated Collection</span>
+                <h2 class="text-3xl sm:text-4xl font-serif text-maroon-700 font-bold mt-1">Our Featured Pieces</h2>
+                <div class="w-16 h-0.5 bg-gold-400 mx-auto mt-3"></div>
+            </div>
+
+            <!-- Filter Tabs & Search Filter -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10 text-sm font-medium">
+                <button onclick="filterProducts('all')" class="filter-tab active px-5 py-2 rounded-full border border-maroon-700 bg-maroon-700 text-cream-100 transition shadow-sm">All Pieces</button>
+                <button onclick="filterProducts('watches')" class="filter-tab px-5 py-2 rounded-full border border-maroon-600/30 text-charcoal hover:border-maroon-700 transition">Watches</button>
+                <button onclick="filterProducts('accessories')" class="filter-tab px-5 py-2 rounded-full border border-maroon-600/30 text-charcoal hover:border-maroon-700 transition">Accessories</button>
+                <button onclick="filterProducts('bestsellers')" class="filter-tab px-5 py-2 rounded-full border border-maroon-600/30 text-charcoal hover:border-maroon-700 transition">Best Sellers</button>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <!-- Javascript will dynamically inject product cards here -->
+            </div>
+        </section>
+
+        <!-- Instagram Grid Banner Section -->
+        <section id="about" class="bg-cream-200 py-16 border-y border-maroon-600/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                    <div class="space-y-4">
+                        <span class="text-xs uppercase tracking-[0.2em] text-gold-500 font-semibold">About KEI & CAL</span>
+                        <h2 class="text-3xl font-serif text-maroon-700 font-bold">Thoughtfully Selected Accessories for Every Occasion</h2>
+                        <p class="text-charcoal/80 font-light leading-relaxed text-sm sm:text-base">
+                            At KEI & CAL (@_daintypieces_), we believe luxury shouldn't cost a fortune. Each piece in our shop is hand-picked to deliver timeless elegance, dainty aesthetics, and reliable functionality.
+                        </p>
+                        <div class="pt-2 flex items-center gap-6">
+                            <div>
+                                <span class="block text-2xl font-serif font-bold text-maroon-700">100%</span>
+                                <span class="text-xs text-charcoal/70 uppercase">Affordable Luxury</span>
+                            </div>
+                            <div class="w-px h-10 bg-maroon-600/20"></div>
+                            <div>
+                                <span class="block text-2xl font-serif font-bold text-maroon-700">Dainty</span>
+                                <span class="text-xs text-charcoal/70 uppercase">Curated Styles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Instagram Card Mockup -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-maroon-600/10 max-w-sm mx-auto w-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-maroon-700 text-gold-400 flex items-center justify-center font-serif font-bold text-sm">
+                                K&C
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-maroon-700 leading-none">_daintypieces_</h4>
+                                <p class="text-[11px] text-charcoal/60">Official Instagram Account</p>
+                            </div>
+                        </div>
+                        <div class="aspect-square bg-cream-100 rounded-lg flex items-center justify-center p-4 border border-dashed border-maroon-600/20">
+                            <div class="text-center">
+                                <i class="fa-brands fa-instagram text-4xl text-maroon-700 mb-2"></i>
+                                <p class="text-xs text-charcoal/70">Follow us on Instagram for daily restock updates and aesthetic video showcases!</p>
+                            </div>
+                        </div>
+                        <a href="https://www.instagram.com/_daintypieces_/" target="_blank" class="mt-4 block text-center w-full py-2 bg-maroon-700 hover:bg-maroon-800 text-cream-100 text-xs uppercase font-semibold rounded tracking-wider transition">
+                            Visit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-maroon-800 text-cream-100 pt-12 pb-8 border-t-4 border-gold-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-maroon-700">
+                <div class="space-y-3">
+                    <h3 class="text-2xl font-serif font-bold text-gold-400">KEI & CAL</h3>
+                    <p class="text-xs text-cream-200/80 leading-relaxed font-light">
+                        Official IG: @_daintypieces_<br>
+                        Offering affordable accessories.<br>
+                        "Elegant pieces just for you" 🛍️📜
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-gold-400 mb-3">Quick Links</h4>
+                    <ul class="space-y-2 text-xs text-cream-200/80">
+                        <li><a href="#hero" class="hover:text-gold-300">Home</a></li>
+                        <li><a href="#catalog" class="hover:text-gold-300">Catalog</a></li>
+                        <li><button onclick="openModal('howModal')" class="hover:text-gold-300">How to Order</button></li>
+                        <li><button onclick="openModal('rulesModal')" class="hover:text-gold-300">Store Rules</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-gold-400 mb-3">Payment Methods</h4>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <span class="bg-maroon-700 px-3 py-1 rounded border border-gold-400/30">GCash</span>
+                        <span class="bg-maroon-700 px-3 py-1 rounded border border-gold-400/30">Bank Transfer</span>
+                        <span class="bg-maroon-700 px-3 py-1 rounded border border-gold-400/30">Cash on Delivery</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-gold-400 mb-3">Connect With Us</h4>
+                    <div class="flex space-x-4 text-lg">
+                        <a href="https://www.instagram.com/_daintypieces_/" target="_blank" class="w-9 h-9 rounded-full bg-maroon-700 flex items-center justify-center hover:bg-gold-400 hover:text-maroon-800 transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/share/1VhpJtefCV/?mibextid=wwXlfr" target="_blank" class="w-9 h-9 rounded-full bg-maroon-700 flex items-center justify-center hover:bg-gold-400 hover:text-maroon-800 transition"><i class="fa-brands fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-6 text-center text-[11px] text-cream-300/60 font-light">
+                &copy; <span id="year"></span> KEI & CAL (_daintypieces_). All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Overlay Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-charcoal/50 backdrop-blur-sm transition-opacity" onclick="toggleCartDrawer()"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-cream-50 border-l border-maroon-600/20 shadow-2xl flex flex-col">
+                <div class="p-6 bg-maroon-700 text-cream-100 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-gold-400"></i>
+                        <h2 class="text-lg font-serif font-bold uppercase tracking-wider">Your Shopping Bag</h2>
+                    </div>
+                    <button onclick="toggleCartDrawer()" class="text-cream-200 hover:text-gold-400 transition">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items List -->
+                <div id="cartItemsContainer" class="flex-grow overflow-y-auto p-6 space-y-4">
+                    <!-- Dynamic cart content -->
+                </div>
+
+                <!-- Cart Footer & Checkout -->
+                <div class="p-6 border-t border-maroon-600/10 bg-cream-100 space-y-4">
+                    <div class="flex justify-between text-base font-semibold text-maroon-700">
+                        <span>Total Amount:</span>
+                        <span id="cartTotal">₱0.00</span>
+                    </div>
+                    <p class="text-[11px] text-charcoal/60">Shipping fee calculated at confirmation via Instagram DM / Order Form.</p>
+                    <button onclick="proceedToCheckout()" class="w-full py-3 bg-maroon-700 hover:bg-maroon-800 text-cream-100 uppercase tracking-widest font-medium text-xs rounded shadow transition">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Container Component -->
+    
+    <!-- 1. HOW TO ORDER MODAL -->
+    <div id="howModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/60 backdrop-blur-sm hidden">
+        <div class="bg-cream-100 rounded-xl max-w-lg w-full p-6 sm:p-8 relative border border-gold-400/30 shadow-2xl">
+            <button onclick="closeModal('howModal')" class="absolute top-4 right-4 text-charcoal/60 hover:text-maroon-700 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-maroon-700 text-gold-400 flex items-center justify-center mx-auto mb-2 text-xl">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-maroon-700">How to Order</h3>
+                <p class="text-xs text-gold-500 uppercase tracking-widest font-semibold">Simple & Easy Process</p>
+            </div>
+            <ol class="space-y-4 text-xs sm:text-sm text-charcoal/80 list-decimal list-inside">
+                <li class="pl-2"><strong class="text-maroon-700">Browse & Select:</strong> Add your desired pieces to the cart on this page.</li>
+                <li class="pl-2"><strong class="text-maroon-700">Submit via Checkout:</strong> Click checkout to automatically generate an order summary.</li>
+                <li class="pl-2"><strong class="text-maroon-700">Send DM:</strong> Copy your order summary and send it directly to our IG account <strong class="text-maroon-700">@_daintypieces_</strong> or Facebook.</li>
+                <li class="pl-2"><strong class="text-maroon-700">Payment & Shipping:</strong> Pay via GCash/Bank Transfer and receive your tracking number!</li>
+            </ol>
+            <div class="mt-6 text-center">
+                <button onclick="closeModal('howModal')" class="px-6 py-2 bg-maroon-700 text-cream-100 text-xs uppercase font-semibold rounded tracking-wider">Got It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. STORE RULES MODAL -->
+    <div id="rulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/60 backdrop-blur-sm hidden">
+        <div class="bg-cream-100 rounded-xl max-w-lg w-full p-6 sm:p-8 relative border border-gold-400/30 shadow-2xl">
+            <button onclick="closeModal('rulesModal')" class="absolute top-4 right-4 text-charcoal/60 hover:text-maroon-700 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-maroon-700 text-gold-400 flex items-center justify-center mx-auto mb-2 text-xl">
+                    <i class="fa-solid fa-scroll"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-maroon-700">Store Guidelines & Rules</h3>
+                <p class="text-xs text-gold-500 uppercase tracking-widest font-semibold">Please Read Carefully</p>
+            </div>
+            <ul class="space-y-3 text-xs sm:text-sm text-charcoal/80 list-disc list-inside">
+                <li><strong>Reservation:</strong> Maximum reservation period is 24 hours unless agreed otherwise.</li>
+                <li><strong>No Cancellation:</strong> Joy reservers & bogus buyers will be posted on social media.</li>
+                <li><strong>Condition:</strong> All watches are brand new / carefully inspected vintage aesthetic pieces.</li>
+                <li><strong>Returns:</strong> Unboxing video strictly required for damage claims upon receiving package.</li>
+            </ul>
+            <div class="mt-6 text-center">
+                <button onclick="closeModal('rulesModal')" class="px-6 py-2 bg-maroon-700 text-cream-100 text-xs uppercase font-semibold rounded tracking-wider">Understand & Agree</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. SOLD GALLERY MODAL -->
+    <div id="soldModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/60 backdrop-blur-sm hidden">
+        <div class="bg-cream-100 rounded-xl max-w-lg w-full p-6 sm:p-8 relative border border-gold-400/30 shadow-2xl">
+            <button onclick="closeModal('soldModal')" class="absolute top-4 right-4 text-charcoal/60 hover:text-maroon-700 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-4">
+                <h3 class="text-2xl font-serif font-bold text-maroon-700">Previously Sold Items</h3>
+                <p class="text-xs text-gold-500 uppercase tracking-widest font-semibold">Archive Gallery</p>
+            </div>
+            <div class="space-y-3 max-h-60 overflow-y-auto pr-2">
+                <div class="p-3 bg-white rounded border flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-maroon-700">Vintage Roman Dial Gold Watch</p>
+                        <p class="text-charcoal/60">Sold to @buyer123</p>
+                    </div>
+                    <span class="text-red-600 font-semibold uppercase">SOLD OUT</span>
+                </div>
+                <div class="p-3 bg-white rounded border flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-maroon-700">Gold Bangle Chain Accent Watch</p>
+                        <p class="text-charcoal/60">Sold to @dainty_fan</p>
+                    </div>
+                    <span class="text-red-600 font-semibold uppercase">SOLD OUT</span>
+                </div>
+            </div>
+            <div class="mt-6 text-center">
+                <button onclick="closeModal('soldModal')" class="px-6 py-2 bg-maroon-700 text-cream-100 text-xs uppercase font-semibold rounded tracking-wider">Close Archive</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. QUICK VIEW MODAL -->
+    <div id="quickViewModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/60 backdrop-blur-sm hidden">
+        <div class="bg-cream-100 rounded-xl max-w-2xl w-full p-6 sm:p-8 relative border border-gold-400/30 shadow-2xl">
+            <button onclick="closeModal('quickViewModal')" class="absolute top-4 right-4 text-charcoal/60 hover:text-maroon-700 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="quickViewContent" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Dynamically loaded product content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. SEARCH MODAL -->
+    <div id="searchModal" class="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-charcoal/60 backdrop-blur-sm hidden">
+        <div class="bg-cream-100 rounded-xl max-w-md w-full p-6 relative border border-gold-400/30 shadow-2xl">
+            <div class="flex items-center gap-3 border-b border-maroon-700/30 pb-3">
+                <i class="fa-solid fa-magnifying-glass text-maroon-700"></i>
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search watches, accessories..." class="w-full bg-transparent text-sm focus:outline-none text-charcoal">
+                <button onclick="toggleSearchModal()"><i class="fa-solid fa-xmark text-charcoal/60"></i></button>
+            </div>
+            <div id="searchResults" class="mt-4 max-h-60 overflow-y-auto space-y-2 text-xs">
+                <!-- Dynamic search items -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set dynamic copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Product Catalog Data
+        const products = [
+            {
+                id: 1,
+                name: "Dainty Gold Vintage Ribbon Box Watch",
+                category: "watches",
+                tag: "bestsellers",
+                price: 599.00,
+                rating: 5.0,
+                badge: "Signature Piece",
+                description: "Featured in our ribbon box gift presentation. A timeless gold-toned slim wristwatch with fine mesh band detailing.",
+                icon: "fa-solid fa-clock"
+            },
+            {
+                id: 2,
+                name: "Elegance Rose Gold Mesh Watch",
+                category: "watches",
+                tag: "watches",
+                price: 549.00,
+                rating: 4.8,
+                badge: "Popular",
+                description: "Delicate rose gold finish featuring a minimalist dial face and comfortable adjustable mesh band.",
+                icon: "fa-solid fa-stopwatch"
+            },
+            {
+                id: 3,
+                name: "Classic Pearl & Gold Bracelet Watch",
+                category: "accessories",
+                tag: "bestsellers",
+                price: 620.00,
+                rating: 4.9,
+                badge: "New Arrival",
+                description: "Dainty watch combined with synthetic pearl bracelet elements for a glamorous jewelry aesthetic.",
+                icon: "fa-solid fa-gem"
+            },
+            {
+                id: 4,
+                name: "Minimalist Slim Leather Strap Watch",
+                category: "watches",
+                tag: "watches",
+                price: 480.00,
+                rating: 4.7,
+                badge: "Casual Elegance",
+                description: "Sophisticated brown thin leather strap paired with a classic champagne dial face.",
+                icon: "fa-solid fa-clock"
+            },
+            {
+                id: 5,
+                name: "Dainty Layered Gold Chain Bracelet",
+                category: "accessories",
+                tag: "accessories",
+                price: 299.00,
+                rating: 4.9,
+                badge: "Accessory",
+                description: "Affordable luxury gold-plated chain bracelet, ideal for stacking with your favorite KEI & CAL timepiece.",
+                icon: "fa-solid fa-link"
+            },
+            {
+                id: 6,
+                name: "Vintage Rectangular Gold Dial Watch",
+                category: "watches",
+                tag: "bestsellers",
+                price: 580.00,
+                rating: 5.0,
+                badge: "Restocked",
+                description: "Chic square gold vintage dial inspired by heritage luxury timepieces.",
+                icon: "fa-solid fa-stopwatch"
+            }
+        ];
+
+        let cart = [];
+
+        // Render Product Cards
+        function renderProducts(itemsToRender = products) {
+            const container = document.getElementById('productGrid');
+            container.innerHTML = '';
+
+            itemsToRender.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl overflow-hidden border border-maroon-600/10 shadow-sm hover:shadow-md transition duration-300 flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div class="relative bg-gradient-to-b from-cream-100 to-cream-200 h-56 flex items-center justify-center p-6 border-b border-maroon-600/5">
+                        <span class="absolute top-3 left-3 bg-maroon-700 text-gold-400 text-[10px] font-semibold uppercase px-2.5 py-1 rounded">
+                            ${product.badge}
+                        </span>
+                        <div class="w-24 h-24 rounded-full bg-cream-50 border-2 border-gold-400/40 flex items-center justify-center text-maroon-700 group-hover:scale-110 transition duration-300 shadow-md">
+                            <i class="${product.icon} text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-gold-500 mb-1">
+                                ${'<i class="fa-solid fa-star"></i>'.repeat(Math.floor(product.rating))}
+                                <span class="ml-1 text-charcoal/60">(${product.rating})</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-lg text-maroon-700 group-hover:text-gold-500 transition">${product.name}</h3>
+                            <p class="text-xs text-charcoal/70 mt-1 line-clamp-2">${product.description}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-cream-200 flex items-center justify-between">
+                            <span class="text-base font-bold text-maroon-700">₱${product.price.toFixed(2)}</span>
+                            <div class="flex gap-2">
+                                <button onclick="quickView(${product.id})" class="p-2 text-charcoal/70 hover:text-maroon-700 transition" title="Quick View">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button onclick="addToCart(${product.id})" class="px-3 py-1.5 bg-maroon-700 hover:bg-maroon-800 text-cream-100 text-xs uppercase font-medium rounded transition">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filter Products Handler
+        function filterProducts(category) {
+            document.querySelectorAll('.filter-tab').forEach(btn => {
+                btn.classList.remove('bg-maroon-700', 'text-cream-100');
+                btn.classList.add('text-charcoal');
+            });
+            event.target.classList.add('bg-maroon-700', 'text-cream-100');
+
+            if (category === 'all') {
+                renderProducts(products);
+            } else if (category === 'bestsellers') {
+                renderProducts(products.filter(p => p.tag === 'bestsellers'));
+            } else {
+                renderProducts(products.filter(p => p.category === category));
+            }
+        }
+
+        // Cart Actions
+        function addToCart(productId) {
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                const product = products.find(p => p.id === productId);
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        function updateCartQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const badge = document.getElementById('cartBadge');
+            const totalEl = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((acc, i) => acc + i.quantity, 0);
+            const totalPrice = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            totalEl.textContent = `₱${totalPrice.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-charcoal/60">
+                        <i class="fa-solid fa-bag-shopping text-4xl mb-3 text-maroon-700/30"></i>
+                        <p class="text-sm">Your shopping bag is empty.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="p-3 bg-white rounded-lg border border-maroon-600/10 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded bg-cream-100 flex items-center justify-center text-maroon-700">
+                            <i class="${item.icon}"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-maroon-700 leading-tight">${item.name}</h4>
+                            <p class="text-[11px] text-charcoal/60">₱${item.price.toFixed(2)} each</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="updateCartQuantity(${item.id}, -1)" class="w-6 h-6 rounded bg-cream-200 text-maroon-700 flex items-center justify-center font-bold text-xs">-</button>
+                        <span class="text-xs font-semibold">${item.quantity}</span>
+                        <button onclick="updateCartQuantity(${item.id}, 1)" class="w-6 h-6 rounded bg-cream-200 text-maroon-700 flex items-center justify-center font-bold text-xs">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cartDrawer');
+            if (open === true) {
+                drawer.classList.remove('hidden');
+            } else if (open === false) {
+                drawer.classList.add('hidden');
+            } else {
+                drawer.classList.toggle('hidden');
+            }
+        }
+
+        // Modals Controls
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function quickView(id) {
+            const p = products.find(prod => prod.id === id);
+            const container = document.getElementById('quickViewContent');
+            container.innerHTML = `
+                <div class="bg-gradient-to-b from-cream-100 to-cream-200 rounded-lg h-56 flex items-center justify-center border border-maroon-600/10">
+                    <i class="${p.icon} text-6xl text-maroon-700"></i>
+                </div>
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] bg-maroon-700 text-gold-400 px-2 py-0.5 rounded font-semibold uppercase">${p.badge}</span>
+                        <h3 class="text-2xl font-serif font-bold text-maroon-700 mt-2">${p.name}</h3>
+                        <p class="text-lg font-bold text-gold-500 mt-1">₱${p.price.toFixed(2)}</p>
+                        <p class="text-xs text-charcoal/80 mt-3 leading-relaxed">${p.description}</p>
+                    </div>
+                    <button onclick="addToCart(${p.id}); closeModal('quickViewModal');" class="mt-4 w-full py-2.5 bg-maroon-700 hover:bg-maroon-800 text-cream-100 uppercase text-xs font-semibold tracking-wider rounded">
+                        Add to Shopping Bag
+                    </button>
+                </div>
+            `;
+            openModal('quickViewModal');
+        }
+
+        // Search Implementation
+        function toggleSearchModal() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('searchInput').focus();
+            }
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (!query) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = '<p class="text-charcoal/60 text-center py-2">No matching items found.</p>';
+                return;
+            }
+
+            resultsContainer.innerHTML = filtered.map(p => `
+                <div onclick="quickView(${p.id}); toggleSearchModal();" class="p-2 hover:bg-cream-200 rounded cursor-pointer flex justify-between items-center">
+                    <span class="font-medium text-maroon-700">${p.name}</span>
+                    <span class="text-gold-500 font-bold">₱${p.price.toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+        document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+
+        // Checkout Simulation
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            let summary = "Hello KEI & CAL! I would like to order:\n\n";
+            cart.forEach(item => {
+                summary += `- ${item.name} (x${item.quantity}) - ₱${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
+            summary += `\nTotal: ₱${total.toFixed(2)}`;
+
+            // Copy order text to clipboard
+            const textarea = document.createElement('textarea');
+            textarea.value = summary;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            alert("Order summary copied to clipboard! Redirecting to Instagram (@_daintypieces_) to complete your order via DM.");
+            window.open("https://www.instagram.com/_daintypieces_/", "_blank");
+        }
+
+        // Initialize view on load
+        window.onload = function() {
+            renderProducts();
+            updateCartUI();
+        };
+    </script>
+</body>
+</html>
