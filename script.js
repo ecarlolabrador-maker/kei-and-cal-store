@@ -1,7 +1,7 @@
 // Set dynamic copyright year
-document.getElementById('year').textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Product Catalog Data
 // Product Catalog Data
 const products = [
     {
@@ -12,7 +12,7 @@ const products = [
         description: "Classic gold-tone vintage watch featuring a petite round dial face and intricate patterned metallic link band.",
         badge: "Featured",
         image: "./images/watch1.jpg",
-        isAvailable: false // In stock
+        isAvailable: true
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ const products = [
         description: "Elegant gold watch with a distinct square face and detailed textured link strap.",
         badge: "Popular",
         image: "./images/watch2.jpg",
-        isAvailable: false // Sold out
+        isAvailable: true
     },
     {
         id: 3,
@@ -42,18 +42,18 @@ const products = [
         description: "Jewelry-inspired silver watch featuring a diamond-shaped dial surrounded by sparkling crystal floral-pattern link connectors.",
         badge: "Casual Elegance",
         image: "./images/watch4.jpg",
-        isAvailable: false
+        isAvailable: true
     },
     {
-    id: 5,
-    name: "Silver Red Dial Floral Crystal Watch",
-    category: "watches",
-    price: 250,
-    description: "Charming silver jewelry watch featuring a striking red round dial, crystal-studded bezel, and delicate floral rhinestone link accents.",
-    badge: "Dainty Pick",
-    image: "./images/watch5.jpg",
-    isAvailable: true
-     }
+        id: 5,
+        name: "Silver Red Dial Floral Crystal Watch",
+        category: "watches",
+        price: 250,
+        description: "Charming silver jewelry watch featuring a striking red round dial, crystal-studded bezel, and delicate floral rhinestone link accents.",
+        badge: "Dainty Pick",
+        image: "./images/watch5.jpg",
+        isAvailable: true
+    }
 ];
 
 let cart = [];
@@ -62,6 +62,7 @@ let activeCategory = 'all';
 // Render Product Catalog
 function renderProducts(filterText = '') {
     const grid = document.getElementById('productGrid');
+    if (!grid) return;
     grid.innerHTML = '';
 
     const filtered = products.filter(p => {
@@ -70,12 +71,6 @@ function renderProducts(filterText = '') {
                               p.description.toLowerCase().includes(filterText.toLowerCase());
         return matchesCategory && matchesSearch;
     });
-
-    const isFav = favorites.includes(p.id);
-    // Add heart button overlay on card image:
-    `<button onclick="event.stopPropagation(); toggleFavorite(${p.id});" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-cream-50/80 backdrop-blur-sm text-maroon-800 flex items-center justify-center hover:scale-110 transition-all">
-        <i class="${isFav ? 'fa-solid text-red-600' : 'fa-regular'} fa-heart"></i>
-    </button>`
 
     if (filtered.length === 0) {
         grid.innerHTML = `
@@ -101,10 +96,6 @@ function renderProducts(filterText = '') {
                         ? `<span class="absolute top-3 left-3 bg-red-900 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-red-500/30">SOLD OUT</span>`
                         : (p.badge ? `<span class="absolute top-3 left-3 bg-maroon-800/90 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold-500/30">${p.badge}</span>` : '')
                     }
-                    
-                    <div class="absolute inset-0 bg-maroon-900/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="bg-cream-50/90 text-maroon-900 text-xs font-semibold px-3 py-1.5 rounded-full shadow-md"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Quick View</span>
-                    </div>
                 </div>
                 <div class="p-5">
                     <h3 onclick="openQuickView(${p.id})" class="font-serif-title font-bold text-lg text-maroon-900 group-hover:text-maroon-700 transition-colors cursor-pointer">${p.name}</h3>
@@ -129,43 +120,23 @@ function renderProducts(filterText = '') {
     });
 }
 
+// Quick View Modal
 function openQuickView(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
-    document.getElementById('modalMainImage').src = product.image;
-    document.getElementById('modalTitle').textContent = product.name;
-    document.getElementById('modalPrice').textContent = `₱${product.price.toFixed(2)}`;
-    document.getElementById('modalDescription').textContent = product.description;
+    const modalImg = document.getElementById('modalMainImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalDesc = document.getElementById('modalDescription');
 
-    const badgeEl = document.getElementById('modalBadge');
-    if (product.isAvailable === false) {
-        badgeEl.textContent = 'SOLD OUT';
-        badgeEl.className = 'inline-block bg-red-900 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-red-500/30 mb-2';
-    } else {
-        badgeEl.textContent = product.badge || 'Available';
-        badgeEl.className = 'inline-block bg-maroon-800/90 text-cream-50 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold-500/30 mb-2';
-    }
-
-    const actionContainer = document.getElementById('modalActionContainer');
-    if (product.isAvailable === false) {
-        actionContainer.innerHTML = `
-            <button disabled class="w-full py-3 bg-charcoal/20 text-charcoal/50 rounded-full text-xs font-semibold cursor-not-allowed">
-                Sold Out
-            </button>
-        `;
-    } else {
-        actionContainer.innerHTML = `
-            <button onclick="addToCart(${product.id}); closeModal('quickViewModal');" class="w-full py-3 bg-maroon-800 hover:bg-maroon-900 text-cream-50 rounded-full text-xs font-semibold transition-all flex items-center justify-center gap-2 shadow-md">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span>Add to Bag</span>
-            </button>
-        `;
-    }
+    if (modalImg) modalImg.src = product.image;
+    if (modalTitle) modalTitle.textContent = product.name;
+    if (modalPrice) modalPrice.textContent = `₱${product.price.toFixed(2)}`;
+    if (modalDesc) modalDesc.textContent = product.description;
 
     openModal('quickViewModal');
 }
-
 
 // Cart Actions
 function addToCart(productId) {
@@ -174,7 +145,7 @@ function addToCart(productId) {
         existing.quantity++;
     } else {
         const product = products.find(p => p.id === productId);
-        cart.push({ ...product, quantity: 1 });
+        if (product) cart.push({ ...product, quantity: 1 });
     }
     updateCartUI();
     toggleCartDrawer(true);
@@ -196,14 +167,18 @@ function updateCartUI() {
     const badge = document.getElementById('cartBadge');
     const totalEl = document.getElementById('cartTotal');
 
+    if (!container || !totalEl) return;
+
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    if (totalItems > 0) {
-        badge.textContent = totalItems;
-        badge.classList.remove('hidden');
-    } else {
-        badge.classList.add('hidden');
+    if (badge) {
+        if (totalItems > 0) {
+            badge.textContent = totalItems;
+            badge.classList.remove('hidden');
+        } else {
+            badge.classList.add('hidden');
+        }
     }
 
     totalEl.textContent = `₱${totalPrice.toFixed(2)}`;
@@ -213,7 +188,6 @@ function updateCartUI() {
             <div class="text-center py-12 text-charcoal/60">
                 <i class="fa-solid fa-bag-shopping text-4xl mb-3 text-maroon-700/30"></i>
                 <p class="text-sm font-medium">Your shopping bag is empty.</p>
-                <p class="text-xs text-charcoal/50 mt-1">Explore our watch collection and select your favorite pieces.</p>
             </div>
         `;
         return;
@@ -244,6 +218,7 @@ function updateCartUI() {
 
 function toggleCartDrawer(show) {
     const drawer = document.getElementById('cartDrawer');
+    if (!drawer) return;
     if (show) drawer.classList.remove('hidden');
     else drawer.classList.add('hidden');
 }
@@ -261,17 +236,10 @@ function checkoutViaInstagram() {
     });
 
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    message += `\n💰 Total Amount: ₱${total.toFixed(2)}\n\n`;
-    message += "👤 Buyer Info:\n";
-    message += "• Full Name:\n";
-    message += "• Contact No:\n";
-    message += "• Delivery Address:\n";
-    message += "• Courier (J&T / Flash / Lalamove):\n\n";
-    message += "Please send payment details. Thank you!";
+    message += `\n💰 Total Amount: ₱${total.toFixed(2)}\n\nPlease assist me with shipping details!`;
 
-    // Auto-copy order template
     navigator.clipboard.writeText(message).then(() => {
-        alert('Order template copied to your clipboard! Paste it directly in our Instagram DM.');
+        alert('Order copied! Paste it in our Instagram DM.');
         window.open('https://www.instagram.com/_daintypieces_/', '_blank');
     }).catch(() => {
         window.open('https://www.instagram.com/_daintypieces_/', '_blank');
@@ -284,40 +252,37 @@ function filterCategory(cat) {
         btn.classList.remove('bg-maroon-800', 'text-cream-50');
         btn.classList.add('bg-cream-100', 'text-charcoal/80');
     });
-    event.target.classList.remove('bg-cream-100', 'text-charcoal/80');
-    event.target.classList.add('bg-maroon-800', 'text-cream-50');
+    if (event && event.target) {
+        event.target.classList.remove('bg-cream-100', 'text-charcoal/80');
+        event.target.classList.add('bg-maroon-800', 'text-cream-50');
+    }
     renderProducts();
 }
 
 function openModal(id) {
-    document.getElementById(id).classList.remove('hidden');
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('hidden');
 }
 
 function closeModal(id) {
-    document.getElementById(id).classList.add('hidden');
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
 }
 
 function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Search Handlers
-document.getElementById('searchInput').addEventListener('input', (e) => renderProducts(e.target.value));
-document.getElementById('mobileSearchInput').addEventListener('input', (e) => renderProducts(e.target.value));
-document.getElementById('cartBtn').addEventListener('click', () => toggleCartDrawer(true));
+// Search & Nav Handlers
+const searchInput = document.getElementById('searchInput');
+const mobileSearchInput = document.getElementById('mobileSearchInput');
+const cartBtn = document.getElementById('cartBtn');
+
+if (searchInput) searchInput.addEventListener('input', (e) => renderProducts(e.target.value));
+if (mobileSearchInput) mobileSearchInput.addEventListener('input', (e) => renderProducts(e.target.value));
+if (cartBtn) cartBtn.addEventListener('click', () => toggleCartDrawer(true));
 
 // Initial Render
 renderProducts();
 updateCartUI();
-
-let favorites = JSON.parse(localStorage.getItem('kc_favorites')) || [];
-
-function toggleFavorite(productId) {
-    if (favorites.includes(productId)) {
-        favorites = favorites.filter(id => id !== productId);
-    } else {
-        favorites.push(productId);
-    }
-    localStorage.setItem('kc_favorites', JSON.stringify(favorites));
-    renderProducts();
-}
