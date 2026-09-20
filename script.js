@@ -71,6 +71,12 @@ function renderProducts(filterText = '') {
         return matchesCategory && matchesSearch;
     });
 
+    const isFav = favorites.includes(p.id);
+    // Add heart button overlay on card image:
+    `<button onclick="event.stopPropagation(); toggleFavorite(${p.id});" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-cream-50/80 backdrop-blur-sm text-maroon-800 flex items-center justify-center hover:scale-110 transition-all">
+        <i class="${isFav ? 'fa-solid text-red-600' : 'fa-regular'} fa-heart"></i>
+    </button>`
+
     if (filtered.length === 0) {
         grid.innerHTML = `
             <div class="col-span-full text-center py-12 text-charcoal/60">
@@ -248,15 +254,28 @@ function checkoutViaInstagram() {
         return;
     }
 
-    let message = "Hello KEI & CAL! I would like to order the following dainty pieces:\n\n";
+    let message = "✨ NEW ORDER - KEI & CAL ✨\n\n";
+    message += "📦 Selected Items:\n";
     cart.forEach((item, index) => {
         message += `${index + 1}. ${item.name} (Qty: ${item.quantity}) - ₱${(item.price * item.quantity).toFixed(2)}\n`;
     });
 
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    message += `\nTotal: ₱${total.toFixed(2)}\n\nPlease assist me with shipping details and payment options!`;
+    message += `\n💰 Total Amount: ₱${total.toFixed(2)}\n\n`;
+    message += "👤 Buyer Info:\n";
+    message += "• Full Name:\n";
+    message += "• Contact No:\n";
+    message += "• Delivery Address:\n";
+    message += "• Courier (J&T / Flash / Lalamove):\n\n";
+    message += "Please send payment details. Thank you!";
 
-    window.open(`https://www.instagram.com/_daintypieces_/`, '_blank');
+    // Auto-copy order template
+    navigator.clipboard.writeText(message).then(() => {
+        alert('Order template copied to your clipboard! Paste it directly in our Instagram DM.');
+        window.open('https://www.instagram.com/_daintypieces_/', '_blank');
+    }).catch(() => {
+        window.open('https://www.instagram.com/_daintypieces_/', '_blank');
+    });
 }
 
 function filterCategory(cat) {
@@ -290,3 +309,15 @@ document.getElementById('cartBtn').addEventListener('click', () => toggleCartDra
 // Initial Render
 renderProducts();
 updateCartUI();
+
+let favorites = JSON.parse(localStorage.getItem('kc_favorites')) || [];
+
+function toggleFavorite(productId) {
+    if (favorites.includes(productId)) {
+        favorites = favorites.filter(id => id !== productId);
+    } else {
+        favorites.push(productId);
+    }
+    localStorage.setItem('kc_favorites', JSON.stringify(favorites));
+    renderProducts();
+}
