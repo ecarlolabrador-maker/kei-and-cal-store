@@ -12,7 +12,7 @@ const products = [
         description: "Classic gold-tone vintage watch featuring a petite round dial face and intricate patterned metallic link band.",
         badge: "Featured",
         image: "./images/watch1.jpg",
-        isAvailable: true
+        isAvailable: false
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ const products = [
         description: "Elegant gold watch with a distinct square face and detailed textured link strap.",
         badge: "Popular",
         image: "./images/watch2.jpg",
-        isAvailable: true
+        isAvailable: false
     },
     {
         id: 3,
@@ -42,7 +42,7 @@ const products = [
         description: "Jewelry-inspired silver watch featuring a diamond-shaped dial surrounded by sparkling crystal floral-pattern link connectors.",
         badge: "Casual Elegance",
         image: "./images/watch4.jpg",
-        isAvailable: true
+        isAvailable: false
     },
     {
         id: 5,
